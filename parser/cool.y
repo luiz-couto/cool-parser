@@ -82,7 +82,7 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %type <features> feature_list features
 %type <feature> feature
 
-%types <formals> formal_list
+%type <formals> formal_list
 %type <formal> formal
 
 %type <expression> expr opt_assign let_list
@@ -120,12 +120,12 @@ class_list
                   parse_results = $$; }
 	;
 
-/* If no parent is specified, the class inherits from the Object class. */
-class	: CLASS TYPEID '{' dummy_feature_list '}' ';'
-		{ $$ = class_($2,idtable.add_string("Object"),$4,
-			      stringtable.add_string(curr_filename)); }
-	| CLASS TYPEID INHERITS TYPEID '{' dummy_feature_list '}' ';'
-		{ $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
+
+class:        CLASS TYPEID '{' feature_list '}' ';'
+		            { $$ = class_($2,idtable.add_string("Object"),$4,
+			            stringtable.add_string(curr_filename)); }
+	            | CLASS TYPEID INHERITS TYPEID '{' feature_list '}' ';'
+		            { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
 	;
 
 /* Feature list may be empty, but no empty features in list. */
@@ -198,6 +198,20 @@ cases:        case
 	            | cases case
 		            { $$ = append_Cases($1, single_Cases($2)); }
 	            ;
+
+let_list:     OBJECTID ':' TYPEID IN expr %prec ASSIGN
+                { $$ = let($1, $3, no_expr(), $5); }
+              | OBJECTID ':' TYPEID ASSIGN expr IN expr %prec ASSIGN
+                { $$ = let($1, $3, $5, $7); }
+              | OBJECTID ':' TYPEID ',' let_list
+                { $$ = let($1, $3, no_expr(), $5); }
+              | OBJECTID ':' TYPEID ASSIGN expr ',' let_list 
+                { $$ = let($1, $3, $5, $7); }
+              | error IN expr %prec ASSIGN
+                { yyclearin; $$ = NULL; }
+              | error ',' let_list 
+                { yyclearin; $$ = NULL; }
+              ;
 
 expr:         OBJECTID ASSIGN expr
                 { $$ = assign($1, $3); }
