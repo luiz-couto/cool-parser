@@ -1,59 +1,59 @@
-(* 1A. The class TYPEID has a lexer error. *)
+(* 1.1. A classe TYPEID possui um erro de lexer *)
 class a {
 };
 
-(* 1B. The feature list has an error *)
+(* 1.2. A feature list possui um erro *)
 class A { 
   imAnError;
 };
 
-(* 1C. Both the TYPEID and feature list have errors *)
+(* 1.3. Ambos possuem erro (TYPEID e feature list) *)
 class b {
   imAnError;
 };
 
-(* 2A. Correct class opening, incorrect feature definition *)
+(* 2.1.  A label da feature está incorreta *)
 class C {
   BadAttribute : String;
   BadMethod () : String { "Hello" }; (* this should not be hit *)
 };
 
-(* 2B. The method body has an error *)
+(* 2.2. O body do método possui algum erro *)
 class D {
   goodFunction (formal1 : Int) : String {
     THIS_IS_A_MISTAKE
   };
 };
 
-(* 2C. The method formal list has an error *)
+(* 2.3. A formal list possui um erro *)
 class E {
   badFormals (formal1 : wrongType) : String {
     "Ok"
   };
 };
 
-(* 2D. Formal list begins with a comma *)
+(* 2.4. A declaração de um atributo está incorreta *)
 class F { 
   badFormals (, formal1 : Type) : String {
     "Expression"
   };
 };
 
-(* 3A. Nonassociativity of Boolean operators *) 
+(* 3.1. Uso incorreto de operadores booleanos *) 
 class G {
   booleanOpTest () : Bool {
     1 <= 1 <= 2
   };
 };
 
-(* 3B. Non-associativity of isvoid operator *) 
+(* 3.2. Uso incorreto de 'isvoid' *) 
 class H {
   isvoidOpTest () : Bool {
     isvoid isvoid B
   };
 };
 
-(* 3C. Incorrect dispatch  *) 
+(* 3.3. Dispatch incorreto  *) 
 class I {
   dispatchTest () : Bool {
     {
@@ -63,7 +63,7 @@ class I {
   };
 };
 
-(* 5. Expression List errors *)
+(* 5. Listas de expressões incorretas *)
 class J {
   blockTest () : String {
     {
@@ -77,23 +77,16 @@ class J {
   };
 };
 
-(* 6A. Missing Let punctuation *)
+(* 6.1. let bindings incorretos *)
 class K {
   letPuncTest () : String {
     let i : Int j : String in y
   };
 };
 
-(* 6B. Error in expression following IN *)
+(* 6.2. Expressão incorreta após a keyword IN *)
 class L {
   letExpr () : String {
     let i : Int, j : String in Potato
-  };
-};
-
-(* 6C. Error in expression in assignment to binding list element *)
-class M {
-  letExpr () : String {
-    let i : Int <- 1, j : Int <- WRONG! in i + j
   };
 };

@@ -1,4 +1,3 @@
-(* correct class definition *)
 Class A {
   correctAttr : String <- "Hello World";
   correctUninitAttr : String;
@@ -7,10 +6,8 @@ Class A {
   };
 };
 
-(* correct inheritance *)
 Class B inherits A {
 };
-
 
 Class D {
   caseTest (object : Object) : String {

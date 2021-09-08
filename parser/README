@@ -182,7 +182,7 @@ pode-se assumir a corretude delas.
 
 -- Erros e testes implementados --
 
-Todos os casos de erro identificados abaixo possuem testes no arquivo bad.cl, devidamente nomeados.
+A maioria dos casos de erro identificados abaixo possuem testes no arquivo bad.cl, devidamente nomeados. Apenas no caso 4, em que a precência correta pode ser verificada em casos "bons" de teste, o arquivo good.cl foi utilizado para verificar a corretude.
 
 1. Declaração incorreta de classe:
 
@@ -195,7 +195,7 @@ Todos os casos de erro identificados abaixo possuem testes no arquivo bad.cl, de
 2.1 - A label da feature está incorreta
 2.2 - O body do método possui algum erro
 2.3 - A formal list possui um erro
-2.4 A declaração de um atributo está incorreta
+2.4 - A declaração de um atributo está incorreta
 
 3. Uso incorreto de um operador:
 
@@ -207,8 +207,7 @@ Todos os casos de erro identificados abaixo possuem testes no arquivo bad.cl, de
 
 5. Listas de expressões incorretas
 
-6. let bindings incorretos
+6. let bindings incorretos:
 
 6.1 - Erro de pontuação na list do let
 6.2 - Expressão incorreta após a keyword IN
-6.3 - Expressão incorreta após a keyword ASSIGN
