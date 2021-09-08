@@ -98,7 +98,7 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %nonassoc '<' '=' LE
 %left '+' '-' 
 %left '*' '/' 
-%left ISVOID
+%nonassoc ISVOID
 %left '~'
 %left '@'
 %left '.'
@@ -126,13 +126,15 @@ class:        CLASS TYPEID '{' feature_list '}' ';'
 			            stringtable.add_string(curr_filename)); }
 	            | CLASS TYPEID INHERITS TYPEID '{' feature_list '}' ';'
 		            { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
-	;
+              | CLASS error '{' feature_list '}' ';' 
+                { yyclearin; }
+	            ;
 
 /* Feature list may be empty, but no empty features in list. */
 
 feature_list: features
                 { $$ = $1; }
-              | %empty 
+              |
                 { $$ = nil_Features(); }
               ;
 
@@ -166,14 +168,14 @@ formal:       OBJECTID ':' TYPEID
                 { $$ = formal($1, $3); }
               ;
 
-expr_list:    %empty
-                { $$ = nil_Expressions(); }
-              | expr_list ',' expr
+expr_list:    expr_list ',' expr
                 { $$ = append_Expressions($1, single_Expressions($3)); }
               | expr
                 { $$ = single_Expressions($1); }
               | error
                 { yyclearin; }
+              |
+                { $$ = nil_Expressions(); }
               ;
 
 expr_block:   expr_block expr ';'
@@ -186,7 +188,7 @@ expr_block:   expr_block expr ';'
 
 opt_assign:   ASSIGN expr
                 { $$ = $2; }
-              | %empty
+              |
                 { $$ = no_expr(); }
 
 case:         OBJECTID ':' TYPEID DARROW expr ';'
