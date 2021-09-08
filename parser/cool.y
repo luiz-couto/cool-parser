@@ -108,17 +108,17 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 /* 
    Save the root of the abstract syntax tree in a global variable.
 */
-program	: class_list	{ @$ = @1; ast_root = program($1); }
-        ;
+program:      class_list
+                { @$ = @1; ast_root = program($1); }
+              ;
 
-class_list
-	: class			/* single class */
-		{ $$ = single_Classes($1);
+class_list:   class			/* single class */
+                { $$ = single_Classes($1);
                   parse_results = $$; }
-	| class_list class	/* several classes */
-		{ $$ = append_Classes($1,single_Classes($2)); 
+	            | class_list class	/* several classes */
+                { $$ = append_Classes($1,single_Classes($2)); 
                   parse_results = $$; }
-	;
+	            ;
 
 
 class:        CLASS TYPEID '{' feature_list '}' ';'
