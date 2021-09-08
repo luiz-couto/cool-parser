@@ -1395,8 +1395,8 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: class_list  */
-#line 111 "cool.y"
-                        { (yyloc) = (yylsp[0]); ast_root = program((yyvsp[0].classes)); }
+#line 112 "cool.y"
+                { (yyloc) = (yylsp[0]); ast_root = program((yyvsp[0].classes)); }
 #line 1401 "cool.tab.c"
     break;
 

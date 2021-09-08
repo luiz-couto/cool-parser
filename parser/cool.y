@@ -92,14 +92,14 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %type <cases> cases
 
 /* Precedence declarations go here. */
-%left LET
+
 %right ASSIGN
-%left NOT
+%right NOT
 %nonassoc '<' '=' LE
 %left '+' '-' 
 %left '*' '/' 
 %nonassoc ISVOID
-%left '~'
+%right '~'
 %left '@'
 %left '.'
 %left '(' ')'
