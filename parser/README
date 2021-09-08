@@ -134,4 +134,81 @@ Instruções
 
 ------8<------8<------8<------8<---corte arqui---8<------8<------8<------8<-----
 
-[Aqui começa sua documentação]
+Nesse documento serão explicadas algumas decisões de implementação, assim como a
+corretude do código. Também serão discutidos os casos de teste implementados.
+
+-- Precedência --
+A precência das operações e operadores foi retirada do manual da linguagem Cool.
+Segue as regras implementadas:
+
+1. Todos os operadores binários inteiros receberam uma associatividade à esquerda.
+
+2. Os dispatch operators também são associativos à esquerda, pois o encadeamento
+de uma expressão do tipo (A.B (). C ()) é executado da esquerda para a direita.
+
+3. Os operadores booleanos não são associativos, pois os operadores booleanos '<'
+e '<=' comparam números inteiros, mas retornam booleanos e, portanto, não podem
+ser encadeados (a < b < c não é possível).
+
+4. Operadores unários (NOT) são associativos à direita.
+
+5. 'isvoid' é não associativo, já que não pode ser encadeado.
+
+6. Assignments é associativo à direita, já que o valor a ser atribuido precisa ser
+processado antes de ser atribuido.
+
+7. Foi dada uma baixa precedência para o let, já que todos os outros operadores devem
+ser resolvidos antes de let, permitindo que ele se extenda o mais a diraita possível.
+
+-- Regras --
+As regras de gramática foram diretamente traduzidas a partir do manual da linguagem
+Cool. Porém, vale salientar alguns pontos:
+
+1. As expressões let foram traduzidas como expressões recursivas. Se, por exemplo, temos
+"let a : Int, b: Int in a + b", então essa expressão é traduzida como "let a: Int in let b:
+Int in a + b". Esse não-terminal recursivo recebeu o nome de let_list.
+
+2. Listas de expressões aparecem de duas formas diferentes na gramática: tanto como blocos de
+execução ( "{exp1; exp2; exp3; ... }" ) como parametros de funções ( "funçãoX (exp1, exp2, exp3 ...)").
+Esses casos foram tratados de formas diferentes, e no primeiro caso foram chamados de expr_block e no
+segundo caso de expr_list. Foi tomada essa decisão para que fosse levado em conta as diferentes
+pontuações separando as expressões.
+
+3. Blocos case foram separadados em dois não terminais: case e cases. Essa implementação tem o
+objetivo de permitir múltiplos branch cases no mesmo caso condicional.
+
+O resto das regras foram traduzidas de forma bastante literal do manual de Cool, e, portanto,
+pode-se assumir a corretude delas.
+
+-- Erros e testes implementados --
+
+Todos os casos de erro identificados abaixo possuem testes no arquivo bad.cl, devidamente nomeados.
+
+1. Declaração incorreta de classe:
+
+1.1 - A classe TYPEID possui um erro de lexer
+1.2 - A feature list possui um erro
+1.3 - Ambos possuem erro (TYPEID e feature list)
+
+2. Declaração incorreta de feature:
+
+2.1 - A label da feature está incorreta
+2.2 - O body do método possui algum erro
+2.3 - A formal list possui um erro
+2.4 A declaração de um atributo está incorreta
+
+3. Uso incorreto de um operador:
+
+3.1 - Uso incorreto de operadores booleanos
+3.2 - Uso incorreto de 'isvoid'
+3.3 - Dispatch incorreto
+
+4. Precedência incorreta
+
+5. Listas de expressões incorretas
+
+6. let bindings incorretos
+
+6.1 - Erro de pontuação na list do let
+6.2 - Expressão incorreta após a keyword IN
+6.3 - Expressão incorreta após a keyword ASSIGN
