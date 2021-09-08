@@ -134,6 +134,12 @@ Instruções
 
 ------8<------8<------8<------8<---corte arqui---8<------8<------8<------8<-----
 
+                    Arquivo README para o Trabalho Prático 3
+                                 Compiladores
+================================================================================
+
+Grupo: Luiz Felipe Couto, Marcos Vinícius, Matheus Tiago Pimenta
+
 Nesse documento serão explicadas algumas decisões de implementação, assim como a
 corretude do código. Também serão discutidos os casos de teste implementados.
 
