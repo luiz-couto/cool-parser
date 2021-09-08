@@ -138,6 +138,7 @@ Nesse documento serão explicadas algumas decisões de implementação, assim co
 corretude do código. Também serão discutidos os casos de teste implementados.
 
 -- Precedência --
+
 A precência das operações e operadores foi retirada do manual da linguagem Cool.
 Segue as regras implementadas:
 
@@ -161,6 +162,7 @@ processado antes de ser atribuido.
 ser resolvidos antes de let, permitindo que ele se extenda o mais a diraita possível.
 
 -- Regras --
+
 As regras de gramática foram diretamente traduzidas a partir do manual da linguagem
 Cool. Porém, vale salientar alguns pontos:
 
@@ -182,7 +184,9 @@ pode-se assumir a corretude delas.
 
 -- Erros e testes implementados --
 
-A maioria dos casos de erro identificados abaixo possuem testes no arquivo bad.cl, devidamente nomeados. Apenas no caso 4, em que a precência correta pode ser verificada em casos "bons" de teste, o arquivo good.cl foi utilizado para verificar a corretude.
+A maioria dos casos de erro identificados abaixo possuem testes no arquivo bad.cl, devidamente
+nomeados. Apenas no caso 4, em que a precência correta pode ser verificada em casos "bons" de
+teste, o arquivo good.cl foi utilizado para verificar a corretude.
 
 1. Declaração incorreta de classe:
 
